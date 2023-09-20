@@ -43,7 +43,6 @@ const Vehicle = () => {
 
   return (
     <div>
-      <Navbar />
       <div className="container mx-auto px-24 py-6">
         <h1 className="flex justify-center mb-6 text-3xl">STAR WAR VEHICLES</h1>
         <div className="flex items-center justify-between mb-4">

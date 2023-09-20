@@ -1,11 +1,11 @@
 import React from "react";
 import Link from "next/link";
 import Navbar from "./components/navbar";
+import Vehicle from "./vehicle";
 
 const Home = () => {
   return (
     <div>
-      <Navbar />
       <div style={{ position: "relative" }}>
         <img className="h-auto max-w-full" src="/warr.png" alt="image description" />
 

@@ -49,7 +49,6 @@ const VehicleDetail = () => {
 
   return (
     <div>
-      <Navbar />
       <div className="container mx-auto mt-4 p-4 ">
         {loading ? (
           <p className="text-center text-gray-600 text-lg">Loading...</p>
