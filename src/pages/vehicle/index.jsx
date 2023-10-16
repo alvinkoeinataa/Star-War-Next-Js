@@ -43,6 +43,12 @@ const Vehicle = () => {
     }
   };
 
+  const handleJump = () => {
+    const data = item.url.split("/");
+    const vehicleId = data[5];
+    router.push(`/vehicle/${vehicleId}`);
+  };
+
   const handleSearch = () => {
     if (searchTerm) {
       setLoading(true);
@@ -70,7 +76,7 @@ const Vehicle = () => {
         <h1 className="flex justify-center mb-6 text-xl">There are total {dataCount.count} vehicles in STAR WAR WORLD</h1>
         <div className="flex items-center justify-between mb-4">
           <input type="text" placeholder="Search Vehicle" className="border rounded p-2 ml-5 mr-2" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
-          <button className="bg-blue-400 p-3 rounded" onClick={handleSearch}>
+          <button className="bg-blue-600 p-3 rounded text-white" onClick={handleSearch}>
             Search
           </button>
         </div>
@@ -86,9 +92,7 @@ const Vehicle = () => {
                         key={index}
                         className="bg-black rounded-lg shadow-lg p-4 mx-4 cursor-pointer transition hover:shadow-xl"
                         onClick={() => {
-                          const data = item.url.split("/");
-                          const vehicleId = data[5];
-                          router.push(`/vehicle/${vehicleId}`);
+                          handleJump();
                         }}
                       >
                         <p className="text-2xl font-semibold text-white">{item.name}</p>
@@ -99,9 +103,7 @@ const Vehicle = () => {
                         key={index}
                         className="bg-black rounded-lg shadow-lg p-4 mx-4 cursor-pointer transition hover:shadow-xl"
                         onClick={() => {
-                          const data = item.url.split("/");
-                          const vehicleId = data[5];
-                          router.push(`/vehicle/${vehicleId}`);
+                          handleJump();
                         }}
                       >
                         <p className="text-2xl font-semibold text-white">{item.name}</p>
