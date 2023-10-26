@@ -10,6 +10,7 @@ const Vehicle = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [dataFound, setDataFound] = useState(true);
+  const [originalDataVehicle, setOriginalDataVehicle] = useState([]); // State untuk data asli
   const router = useRouter();
 
   const fetchData = (page) => {
@@ -17,6 +18,7 @@ const Vehicle = () => {
     axios
       .get(`https://swapi.dev/api/vehicles/?page=${page}`)
       .then((response) => {
+        setOriginalDataVehicle(response.data.results); // Set original data
         setDataVehicle(response.data.results);
         setDataCount(response.data);
         setLoading(false);
@@ -57,9 +59,25 @@ const Vehicle = () => {
           alert("Error, reload the page!");
           setLoading(false);
         });
+      // Hapus baris ini sehingga nilai searchTerm tetap ada
+      // setSearchTerm("");
     } else {
       setSearchResults([]);
       setDataFound(true);
+    }
+  };
+
+  const handleReset = () => {
+    setSearchResults([]); // Kosongkan hasil pencarian
+    setDataFound(true); // Set data ditemukan ke true
+    setDataVehicle(originalDataVehicle); // Kembalikan data ke data asli
+
+    setSearchTerm("");
+  };
+
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      handleSearch();
     }
   };
 
@@ -69,10 +87,22 @@ const Vehicle = () => {
         <h1 className="flex justify-center mb-6 text-3xl">STAR WAR VEHICLES</h1>
         <h1 className="flex justify-center mb-6 text-xl">There are total {dataCount.count} vehicles in STAR WAR WORLD</h1>
         <div className="flex items-center justify-between mb-4">
-          <input type="text" placeholder="Search Vehicle" className="border rounded p-2 ml-5 mr-2" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+          <input
+            type="text"
+            placeholder="Search Vehicle"
+            className="border rounded p-2 ml-5 mr-2"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            onKeyPress={handleKeyPress} // Tambahkan event handler untuk tombol "Enter"
+          />
           <button className="bg-blue-700 p-3 rounded text-white" onClick={handleSearch}>
             Search
           </button>
+          {(searchResults.length > 0 || !dataFound) && (
+            <button className="bg-red-700 p-3 rounded text-white" onClick={handleReset}>
+              Reset
+            </button>
+          )}
         </div>
         {loading ? (
           <p className="text-center text-gray-600 text-lg">Loading...</p>
@@ -109,19 +139,20 @@ const Vehicle = () => {
                     ))}
               </div>
             ) : (
-              <p className="text-center text-red-600 text-lg">Data not found</p>
+              <p className="text-center text-red-600 text-lg">{searchTerm} not found</p>
             )}
-            {searchResults.length === 0 && (
-              <div className="mt-4 flex items-center justify-center">
-                <button onClick={handlePreviousPage} disabled={currentPage === 1} className="bg-black hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mr-6">
-                  Previous
-                </button>
-                <div className="mr-6">Page {currentPage}</div>
-                <button onClick={handleNextPage} disabled={currentPage === dataCount.count} className="bg-black hover:bg-blue-600 text-white font-bold py-2 px-8 rounded">
-                  Next
-                </button>
-              </div>
-            )}
+            {searchResults.length === 0 &&
+              dataFound && ( // Hanya tampilkan tombol Previous dan Next jika data ditemukan
+                <div className="mt-4 flex items-center justify-center">
+                  <button onClick={handlePreviousPage} disabled={currentPage === 1} className="bg-black hover-bg-blue-600 text-white font-bold py-2 px-4 rounded mr-6">
+                    Previous
+                  </button>
+                  <div className="mr-6">Page {currentPage}</div>
+                  <button onClick={handleNextPage} disabled={currentPage === dataCount.count} className="bg-black hover-bg-blue-600 text-white font-bold py-2 px-8 rounded">
+                    Next
+                  </button>
+                </div>
+              )}
           </div>
         )}
       </div>
