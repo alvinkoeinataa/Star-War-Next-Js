@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Navbar from "../components/navbar";
+import Link from "next/link";
 
 const VehicleDetail = () => {
   const [dataVehicle, setDataVehicle] = useState({});
@@ -76,6 +77,9 @@ const VehicleDetail = () => {
                   </li>
                 ))}
               </ul>
+              <Link href="/vehicle">
+                <button className="p-3 bg-blue-400 m-5">Back</button>
+              </Link>
             </div>
           </div>
         )}

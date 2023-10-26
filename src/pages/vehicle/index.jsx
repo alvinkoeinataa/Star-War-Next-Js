@@ -86,7 +86,7 @@ const Vehicle = () => {
       <div className="container mx-auto px-24 py-6">
         <h1 className="flex justify-center mb-6 text-3xl">STAR WAR VEHICLES</h1>
         <h1 className="flex justify-center mb-6 text-xl">There are total {dataCount.count} vehicles in STAR WAR WORLD</h1>
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center  mb-4">
           <input
             type="text"
             placeholder="Search Vehicle"
@@ -95,11 +95,12 @@ const Vehicle = () => {
             onChange={(e) => setSearchTerm(e.target.value)}
             onKeyPress={handleKeyPress} // Tambahkan event handler untuk tombol "Enter"
           />
-          <button className="bg-blue-700 p-3 rounded text-white" onClick={handleSearch}>
+
+          <button className="bg-blue-700 p-3 rounded text-white mr-4" onClick={handleSearch}>
             Search
           </button>
           {(searchResults.length > 0 || !dataFound) && (
-            <button className="bg-red-700 p-3 rounded text-white" onClick={handleReset}>
+            <button className="bg-green-700 p-3 rounded text-white" onClick={handleReset}>
               Reset
             </button>
           )}
@@ -139,7 +140,7 @@ const Vehicle = () => {
                     ))}
               </div>
             ) : (
-              <p className="text-center text-red-600 text-lg">{searchTerm} not found</p>
+              <h1 className="text-red-600 text-2xl pl-6">Data not found</h1>
             )}
             {searchResults.length === 0 &&
               dataFound && ( // Hanya tampilkan tombol Previous dan Next jika data ditemukan
