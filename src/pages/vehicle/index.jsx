@@ -83,27 +83,22 @@ const Vehicle = () => {
 
   return (
     <div>
-      <div className="container mx-auto px-24 py-6">
-        <h1 className="flex justify-center mb-6 text-3xl">STAR WAR VEHICLES</h1>
-        <h1 className="flex justify-center mb-6 text-xl">There are total {dataCount.count} vehicles in STAR WAR WORLD</h1>
-        <div className="flex items-center  mb-4">
-          <input
-            type="text"
-            placeholder="Search Vehicle"
-            className="border rounded p-2 ml-5 mr-2"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            onKeyPress={handleKeyPress} // Tambahkan event handler untuk tombol "Enter"
-          />
+      <div className="container mx-auto px-24 py-6 ">
+        <h1 className="flex justify-center mb-6 text-2xl sm:text-3xl text-bold">STAR WAR VEHICLES</h1>
+        <h1 className="flex justify-center mb-6 text-lg sm:text-xl">There are total {dataCount.count} vehicles in STAR WAR WORLD</h1>
+        <div className="flex mb-4 sm:p-0 ml-4">
+          <div className="sm:flex-row">
+            <input type="text" placeholder="Search Vehicle" className="border rounded p-2 mr-2" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} onKeyPress={handleKeyPress} />
 
-          <button className="bg-blue-700 p-3 rounded text-white mr-4" onClick={handleSearch}>
-            Search
-          </button>
-          {(searchResults.length > 0 || !dataFound) && (
-            <button className="bg-green-700 p-3 rounded text-white" onClick={handleReset}>
-              Reset
+            <button className="bg-blue-700 p-3 mt-2 rounded text-white mr-4 " onClick={handleSearch}>
+              Search
             </button>
-          )}
+            {(searchResults.length > 0 || !dataFound) && (
+              <button className="bg-green-700 py-3 px-4 rounded text-white mt-2" onClick={handleReset}>
+                Reset
+              </button>
+            )}
+          </div>
         </div>
         {loading ? (
           <p className="text-center text-gray-600 text-lg">Loading...</p>
